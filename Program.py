@@ -125,4 +125,12 @@ def lemmatize_text(text):
 # print(base_file[['reviewText', 'StemmedText']].head())
 # print(base_file[['reviewText', 'LemmatizedText']].head())
 
+# Wektoryzacja tekstu
+from sklearn.feature_extraction.text import TfidfVectorizer
 
+
+tfidf_vectorizer = TfidfVectorizer(max_features=1000)
+tfidf_matrix = tfidf_vectorizer.fit_transform(base_file['reviewText'])
+terms = tfidf_vectorizer.get_feature_names_out()
+tfidf_df = pd.DataFrame(data=tfidf_matrix.toarray(), columns=terms)
+print(tfidf_df.head(30))
