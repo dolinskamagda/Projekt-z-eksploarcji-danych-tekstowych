@@ -188,7 +188,37 @@ print(analyzer.preprocess_and_analyze_frequency())
 # print(analyzer.lemmatize_text())
 print("Sentiment Analysis Results:")
 print(analyzer.analyze_sentiment())
-print("\nSentiment Analysis on Processed Text:")
-print(analyzer.analyze_sentiment_processed())
+# print("\nSentiment Analysis on Processed Text:")
+# print(analyzer.analyze_sentiment_processed())
 
 import unittest
+class TestTextDataAnalyzer(unittest.TestCase):
+
+    def setUp(self):
+        self.df = base_file.copy()
+        self.analyzer = TextDataAnalyzer(self.df)
+
+    def test_preprocess_and_analyze_frequency(self):
+        freq = self.analyzer.preprocess_and_analyze_frequency()
+        self.assertGreaterEqual(len(freq), 3)
+
+    def test_stem_text(self):
+        stemmed_df = self.analyzer.stem_text()
+        self.assertEqual(len(stemmed_df), len(self.df))
+
+    def test_lemmatize_text(self):
+        lemmatized_df = self.analyzer.lemmatize_text()
+        self.assertEqual(len(lemmatized_df), len(self.df))
+
+    def test_vectorize_text(self):
+        self.analyzer.vectorize_text()
+        self.assertIsNotNone(self.analyzer.tfidf_matrix)
+
+    def test_plot_distributions(self):
+        try:
+            self.analyzer.plot_distributions()
+        except Exception as e:
+            self.fail(f"plot_distributions() raised an exception: {e}")
+
+if __name__ == '__main__':
+    unittest.main()
