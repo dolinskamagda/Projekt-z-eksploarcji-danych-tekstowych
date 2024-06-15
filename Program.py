@@ -93,7 +93,7 @@ def display_reviewer_counts(df):
 
 
 def plot_ratings_distribution(df, column):
-    bins = [1, 2, 3, 4, 5]
+    bins = [1, 2, 3, 4, 5, 6]
     df[column].hist(bins=bins, width=0.95, edgecolor='black', align='left')
     plt.title('Distribution of Ratings')
     plt.xlabel('Rating')
@@ -104,7 +104,7 @@ def plot_ratings_distribution(df, column):
 # display_stopwords_example()
 # calculate_stopwords_count(base_file, 'reviewText')
 # display_reviewer_counts(base_file)
-# plot_ratings_distribution(base_file, 'overall')
+plot_ratings_distribution(base_file, 'overall')
 # #
 def transform_helpful(row):
     positive, total = map(int, row.strip('[]').split(', '))
@@ -135,54 +135,7 @@ def plot_helpful_ratio_distribution(df):
 
 
 from sklearn.feature_extraction.text import CountVectorizer
-# bow = CountVectorizer(max_features=5000, lowercase=True, ngram_range=(1,2), analyzer="word")
-# bow.fit(base_file['reviewText'])
-# # Wyświetlamy klucze słownika
-# vocabulary = list(bow.vocabulary_.keys())
-# print(vocabulary)
-
 from wordcloud import WordCloud
-
-# def visualize_top_words_wordcloud(data, column, max_features=1000, ngram_range=(1, 2)):
-#     """
-#     Tworzy wizualizację chmury słów najczęściej występujących słów i bigramów w podanym zbiorze danych.
-#
-#     :param data: DataFrame zawierający dane tekstowe.
-#     :param column: Nazwa kolumny zawierającej tekst do analizy.
-#     :param max_features: Maksymalna liczba cech do uwzględnienia w CountVectorizer.
-#     :param ngram_range: Zakres n-gramów do uwzględnienia (domyślnie unigrama i bigramy).
-#     """
-#     # Generowanie słownika z użyciem CountVectorizer
-#     bow = CountVectorizer(max_features=max_features, lowercase=True, ngram_range=ngram_range, analyzer="word")
-#     bow.fit(data[column])
-#
-#     # Transformacja tekstu na macierz liczby wystąpień słów
-#     word_counts = bow.transform(data[column])
-#
-#     # Sumowanie liczby wystąpień dla każdego słowa/bigramu
-#     word_counts_sum = word_counts.sum(axis=0)
-#
-#     # Tworzenie DataFrame dla słów/bigramów i ich liczby wystąpień
-#     word_freq_df = pd.DataFrame(word_counts_sum, columns=bow.get_feature_names_out()).T
-#     word_freq_df.columns = ['Frequency']
-#
-#     # Sortowanie według częstotliwości
-#     top_words_df = word_freq_df.sort_values(by='Frequency', ascending=False)
-#
-#     # Generowanie chmury słów
-#     wordcloud = WordCloud(width=1600, height=800, max_words=max_features, background_color='white').generate_from_frequencies(top_words_df['Frequency'])
-#
-#     # Wyświetlanie chmury słów
-#     plt.figure(figsize=(20, 20))
-#     plt.imshow(wordcloud, interpolation='bilinear')
-#     plt.axis('off')
-#     plt.title(f'Top {max_features} Most Frequent Words and Bigrams WordCloud')
-#     plt.show()
-#
-#
-#
-# visualize_top_words_wordcloud(base_file, 'reviewText')
-
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -308,10 +261,10 @@ analyzer.preprocess_text()
 # print(analyzer.vectorize_text())
 # analyzer.compare_frequency_and_tfidf()
 # analyzer.visualize_top_words_wordcloud()
-print("Stemmed Text Results:")
-print(analyzer.stem_text())
-print("\nLemmatized Text Results:")
-print(analyzer.lemmatize_text())
+# print("Stemmed Text Results:")
+# print(analyzer.stem_text())
+# print("\nLemmatized Text Results:")
+# print(analyzer.lemmatize_text())
 
 class SentimentAnalyzer:
 
